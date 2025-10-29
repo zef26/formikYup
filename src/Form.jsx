@@ -1,4 +1,4 @@
-import { useFormik } from "formik";
+import { useFormik, Formik, Field, ErrorMessage } from "formik";
 import * as Yup from 'yup';
 
 
@@ -8,8 +8,12 @@ import * as Yup from 'yup';
 
 const Form = () => {
 
-const formik = useFormik({
-    initialValues: {
+ 
+
+
+    return (
+        <Formik
+        initialValues = {{
         name: '',
         email: '',
         amount: 0,
@@ -17,9 +21,8 @@ const formik = useFormik({
         text: '',
         terms: false
 
-    },
-
-    validationSchema : Yup.object({
+    }}
+    validationSchema = {Yup.object({
         name: Yup.string()
             .min(2, 'Минимум 2 символа')
             .required('Обязательное поле!'),
@@ -36,24 +39,20 @@ const formik = useFormik({
         terms: Yup.boolean()
             .required('Необходимо согласие')
             .oneOf([true], 'Необходимо согласие')
-    }),
-
-    onSubmit: values => {
+    })}
+    onSubmit = {values => {
         console.log(JSON.stringify(values, null, 2))
         
-    }
-})
-
-
-    return (
-        <form className="form" onSubmit={formik.handleSubmit}>
+    }}
+        >
+            <form className="form" onSubmit={formik.handleSubmit}>
             <h2>Отправить пожертвование</h2>
             <label htmlFor="name">Ваше имя</label>
-            <input
+            <Field
                 id="name"
                 name="name"
                 type="text"
-                {  }
+                
                
             />
             {formik.errors.name && formik.touched.name ? <div className= "error">{formik.errors.name}</div> : null}
@@ -112,6 +111,7 @@ const formik = useFormik({
             {formik.errors.terms && formik.touched.terms ? <div className= "error">{formik.errors.terms}</div> : null}
             <button type="submit">Отправить</button>
         </form>
+        </Formik>
     )
 }
 
