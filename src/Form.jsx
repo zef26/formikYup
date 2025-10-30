@@ -1,4 +1,4 @@
-import { useFormik, Formik, Field, ErrorMessage } from "formik";
+import { useFormik, Formik, Field, ErrorMessage, Form } from "formik";
 import * as Yup from 'yup';
 
 
@@ -6,7 +6,7 @@ import * as Yup from 'yup';
 
 
 
-const Form = () => {
+const CustomForm = () => {
 
  
 
@@ -45,74 +45,63 @@ const Form = () => {
         
     }}
         >
-            <form className="form" onSubmit={formik.handleSubmit}>
+            <Form className="form" >
             <h2>Отправить пожертвование</h2>
             <label htmlFor="name">Ваше имя</label>
             <Field
-                id="name"
+                id="name" 
                 name="name"
-                type="text"
-                
-               
+                type="text"  
             />
-            {formik.errors.name && formik.touched.name ? <div className= "error">{formik.errors.name}</div> : null}
+           <ErrorMessage className= "error" name="name" component="div" />
             <label htmlFor="email">Ваша почта</label>
-            <input
+            <Field
                 id="email"
                 name="email"
                 type="email"
-                value={formik.values.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+                
             />
-            {formik.errors.email && formik.touched.email ? <div className= "error">{formik.errors.email}</div> : null}
+            <ErrorMessage className= "error" name="email" component="div" />
             <label htmlFor="amount">Количество</label>
-            <input
+            <Field
                 id="amount"
                 name="amount"
                 type="number"
-                value={formik.values.amount}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+               
             />
-            {formik.errors.amount && formik.touched.amount ? <div className= "error">{formik.errors.currency}</div> : null}
+            <ErrorMessage className= "error" name="name" component="div" />
             <label htmlFor="currency">Валюта</label>
-            <select
+            <Field
                 id="currency"
                 name="currency"
-                value={formik.values.currency}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}>
-                    
-                    <option value="">Выберите валюту</option>
+                as="select">
+               <option value="">Выберите валюту</option>
                     <option value="USD">USD</option>
                     <option value="UAH">UAH</option>
                     <option value="RUB">RUB</option>
-            </select>
-            {formik.errors.currency && formik.touched.currency ? <div className= "error">{formik.errors.currency}</div> : null}
+                    
+                    
+            </Field>
+            <ErrorMessage className= "error" name="currency" component="div" />
             <label htmlFor="text">Ваше сообщение</label>
-            <textarea 
+            <Field 
                 id="text"
                 name="text"
-                value={formik.values.text}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
+                as="textarea"
             />
-            {formik.errors.text && formik.touched.text ? <div className= "error">{formik.errors.text}</div> : null}
+            <ErrorMessage className= "error" name="name" component="div" />
             <label className="checkbox">
-                <input 
+                <Field 
                 name="terms"
-                 type="checkbox"
-                 value={formik.values.terms}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur} />
+                 type="checkbox"/>
+                 
                 Соглашаетесь с политикой конфиденциальности?
             </label>
-            {formik.errors.terms && formik.touched.terms ? <div className= "error">{formik.errors.terms}</div> : null}
+            <ErrorMessage className= "error" name="terms" component="div" />
             <button type="submit">Отправить</button>
-        </form>
+        </Form>
         </Formik>
     )
 }
 
-export default Form;
+export default CustomForm;
